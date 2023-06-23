@@ -6,11 +6,11 @@ const homeSlice = createSlice({
         genres:{},
     },   
     reducers:{
-        getApiConfiguration:(action, payload)=>{
+        getApiConfiguration:(state, action)=>{
             state.url = action.payload
         },
 
-        getGenres:(action, payload)=>{
+        getGenres:(state, action)=>{
             state.genres = action.payload
         }
     }
