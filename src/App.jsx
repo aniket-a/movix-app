@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
 // importing all components
-// import Header from "./components/header/Header";
+import Header from "./components/header/Header";
 // import Footer from "./components/footer/Footer";
 import Home from './pages/home/Home';
 import SearchResult from "./pages/searchResult/SearchResult";
@@ -37,6 +37,7 @@ function App() {
 
   return (
     <BrowserRouter >
+    <Header />
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/mediaType/:id' element={<Details />} />
