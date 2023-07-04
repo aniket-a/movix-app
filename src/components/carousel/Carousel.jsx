@@ -9,12 +9,23 @@ import Img from "../lazyLoadImage/Img";
 import PosterFallback from "../../assets/no-poster.png";
 import "./carousel.scss";
 import CircleRating from "../circleRaring/CircleRating";
+import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading }) => {
-
+const Carousel = ({ data, loading, endPoint  }) => {
+  const navigate = useNavigate()
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
-  const navigation = (dir) => {};
+  const navigation = (dir) => {
+    const Container = carouselContainer.current;
+
+      const scrollAmount = dir === "left"? Container.scrollLeft - (Container.offsetWidth + 20) :
+      Container.scrollLeft + (Container.offsetWidth + 20)
+
+      Container.scrollTo({
+        left:scrollAmount,
+        behavior:"smooth"
+      })
+  };
 
   const skItem = () =>{
     return(
@@ -34,16 +45,18 @@ const Carousel = ({ data, loading }) => {
       <ContentWrapper>
         <BsFillArrowLeftCircleFill className="carouselLeftNav arrow" onClick={() => navigation("left")} />
         <BsFillArrowRightCircleFill className="carouselRighttNav arrow" onClick={() => navigation("right")} />
-          {!loading ? (
-            <div className="carouselItems">
+        {!loading ? (
+            <div className="carouselItems" ref={carouselContainer}>
               {
-                data.map((item)=>{
+                data?.map((item)=>{
+                  console.log(item,"data")
                   const posterUrl = item.poster_path ? url.poster + item.poster_path : PosterFallback
                   return(
-                    <div className="carouselItem">
+                    <div key={item.id} className="carouselItem" onClick={()=> navigate(`/${item.media_type || endPoint }/${item.id}`)}>
                       <div className="posterBlock">
                         <Img src={posterUrl} />
-                        <CircleRating rating={item.vote_average.toFixed(2)}/>
+                        <CircleRating rating={item.vote_average.toFixed(1)}/>
+                        <Genres data={item.genre_ids.slice(0, 2)}/>
                       </div>
                       <div className="textBlock">
                         <div className="title">{item.title || item.name}</div>
