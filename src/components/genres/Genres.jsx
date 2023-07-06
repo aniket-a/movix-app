@@ -9,9 +9,10 @@ const Genres = ({data}) => {
     <div className="genres">
         {
             data?.map((g)=>{
+                
                 return(
-                    <div className="genre">
-                        {genres[g].name}
+                    <div key={g} className="genre">
+                        {genres[g]?.name}
                     </div>
                 )
             })

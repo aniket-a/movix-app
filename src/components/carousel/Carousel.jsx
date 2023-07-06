@@ -49,7 +49,7 @@ const Carousel = ({ data, loading, endPoint  }) => {
             <div className="carouselItems" ref={carouselContainer}>
               {
                 data?.map((item)=>{
-                  console.log(item,"data")
+                  
                   const posterUrl = item.poster_path ? url.poster + item.poster_path : PosterFallback
                   return(
                     <div key={item.id} className="carouselItem" onClick={()=> navigate(`/${item.media_type || endPoint }/${item.id}`)}>
