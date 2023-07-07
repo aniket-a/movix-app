@@ -12,16 +12,17 @@ import CircleRating from "../../../components/circleRaring/CircleRating";
 import Img from "../../../components/lazyLoadImage/Img.jsx";
 import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "../Playbtn";
-// import VideoPopup from "../../../components/videoPopup/VideoPopup";
 import useFetch from "../../../Hooks/UseFetch";
+import VideoPopup from "../../../components/videoPop/VideoPopup";
 
 const DetailsBanner = ({ video, crew }) => {
     const { mediaType, id } = useParams();
     const { data, loading } = useFetch(`/${mediaType}/${id}`);
-
+    const [show, setShow] = useState(false)
+    const [videoId, setVideoId] = useState(null)
     const { url } = useSelector((state) => state.home);
-
     const _genres = data?.genres?.map((g)=> g.id)
+    
 
     const toHoursAndMinutes = (totalMinutes) => {
         const hours = Math.floor(totalMinutes / 60);
@@ -61,7 +62,12 @@ const DetailsBanner = ({ video, crew }) => {
 
                                             <div className="row">
                                                 <CircleRating rating={data.vote_average.toFixed(1)} />
-                                                <div className="playbtn">
+                                                <div className="playbtn"
+                                                    onClick={()=> {
+                                                        setShow(true)
+                                                        setVideoId(video.key)
+                                                    }}
+                                                >
                                                     <PlayIcon />
                                                     <span className="text">
                                                         Watch Trailer
@@ -109,6 +115,8 @@ const DetailsBanner = ({ video, crew }) => {
                                                 )}
                                             </div>
                                         </div>
+                                        <VideoPopup  show={show} setShow={setShow}
+                                        videoId={videoId} setVideoId={setVideoId}/>
                                     </div>
                                 </ContentWrapper>
                             </div>

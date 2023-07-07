@@ -10,7 +10,7 @@ const Details = () => {
 
   return (
     <div>
-      <DetailsBanner />
+      <DetailsBanner  video={data?.results?.[0]} crew={credits?.crew}/>
     </div>
   )
 }
