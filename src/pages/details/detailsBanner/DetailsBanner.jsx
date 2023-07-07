@@ -23,6 +23,7 @@ const DetailsBanner = ({ video, crew }) => {
     const { url } = useSelector((state) => state.home);
     const _genres = data?.genres?.map((g)=> g.id)
     
+    // const director = crew.filter((f)=> f.job === "Director")
 
     const toHoursAndMinutes = (totalMinutes) => {
         const hours = Math.floor(totalMinutes / 60);
@@ -114,6 +115,7 @@ const DetailsBanner = ({ video, crew }) => {
                                                     </div>
                                                 )}
                                             </div>
+                                            
                                         </div>
                                         <VideoPopup  show={show} setShow={setShow}
                                         videoId={videoId} setVideoId={setVideoId}/>
