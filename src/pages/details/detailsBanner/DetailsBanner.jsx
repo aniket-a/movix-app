@@ -21,14 +21,15 @@ const DetailsBanner = ({ video, crew }) => {
     const [show, setShow] = useState(false)
     const [videoId, setVideoId] = useState(null)
     const { url } = useSelector((state) => state.home);
-    const _genres = data?.genres?.map((g)=> g.id)
-    
-    // const director = crew.filter((f)=> f.job === "Director")
+    const _genres = data?.genres?.map((g) => g.id)
+
+    // const director = crew?.crew?.filter((f) => f.job === "Director")
+    // const writer = crew?.crew?.filter((f) => f.job === "Sreenplay" || f.job === "Story" || f.job === "Writer")
 
     const toHoursAndMinutes = (totalMinutes) => {
         const hours = Math.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
-        return `${hours}h : ${minutes > 0 ? ` ${minutes}m` : ""}`
+        return `${hours}h : ${minutes}m`
     };
 
     return (
@@ -64,7 +65,7 @@ const DetailsBanner = ({ video, crew }) => {
                                             <div className="row">
                                                 <CircleRating rating={data.vote_average.toFixed(1)} />
                                                 <div className="playbtn"
-                                                    onClick={()=> {
+                                                    onClick={() => {
                                                         setShow(true)
                                                         setVideoId(video.key)
                                                     }}
@@ -77,7 +78,7 @@ const DetailsBanner = ({ video, crew }) => {
                                             </div>
                                             <div className="overview">
                                                 <div className="heading">
-                                                    OverView 
+                                                    OverView
                                                 </div>
                                                 <div className="description">
                                                     {data.overview}
@@ -94,10 +95,10 @@ const DetailsBanner = ({ video, crew }) => {
                                                         </span>
                                                     </div>
                                                 )}
-                                                 {data.release_date && (
+                                                {data.release_date && (
                                                     <div className="infoItem">
                                                         <span className="text bold">
-                                                        Release: {" "}
+                                                            Release: {" "}
                                                         </span>
                                                         <span className="text">
                                                             {(dayjs(data.release_date).format("DD MMMM, YYYY"))}
@@ -107,7 +108,7 @@ const DetailsBanner = ({ video, crew }) => {
                                                 {data.runtime && (
                                                     <div className="infoItem">
                                                         <span className="text bold">
-                                                        RunTime: {" "}
+                                                            RunTime: {" "}
                                                         </span>
                                                         <span className="text">
                                                             {toHoursAndMinutes(data.runtime)}
@@ -115,10 +116,11 @@ const DetailsBanner = ({ video, crew }) => {
                                                     </div>
                                                 )}
                                             </div>
-                                            
+                                                
+                                                
                                         </div>
-                                        <VideoPopup  show={show} setShow={setShow}
-                                        videoId={videoId} setVideoId={setVideoId}/>
+                                        <VideoPopup show={show} setShow={setShow}
+                                            videoId={videoId} setVideoId={setVideoId} />
                                     </div>
                                 </ContentWrapper>
                             </div>
