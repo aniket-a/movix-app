@@ -11,10 +11,12 @@ import "./carousel.scss";
 import CircleRating from "../circleRaring/CircleRating";
 import Genres from "../genres/Genres";
 
-const Carousel = ({ data, loading, endPoint  }) => {
+const Carousel = ({ data, loading, endPoint, title  }) => {
   const navigate = useNavigate()
   const carouselContainer = useRef();
   const { url } = useSelector((state) => state.home);
+  
+
   const navigation = (dir) => {
     const Container = carouselContainer.current;
 
@@ -27,6 +29,7 @@ const Carousel = ({ data, loading, endPoint  }) => {
       })
   };
 
+  
   const skItem = () =>{
     return(
       <div className="skeletonItem">
@@ -43,6 +46,7 @@ const Carousel = ({ data, loading, endPoint  }) => {
   return (
     <div className="carousel">
       <ContentWrapper>
+        {title && <div className="carouselTitle">{title}</div>}
         <BsFillArrowLeftCircleFill className="carouselLeftNav arrow" onClick={() => navigation("left")} />
         <BsFillArrowRightCircleFill className="carouselRighttNav arrow" onClick={() => navigation("right")} />
         {!loading ? (
